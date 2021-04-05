@@ -6,6 +6,8 @@ import G_UTL
 
 # Program Counter
 PC = 0
+# Program Base Counter
+CP = 0x20000000
 
 # Instruction Memory
 INST = []

@@ -6,7 +6,16 @@ import utils
 import G_MEM, G_UTL
 
 def main():
-    filename = "program.asm"
+
+    # Read Command Arguements
+    args = sys.argv[:]
+    if len(args) <= 1:
+        filename = "program.asm"
+    elif len(args) == 3 and args[1] == "-f":
+        filename = args[2]
+    else:
+        print("USAGE: [-f [filename] | -s]")
+        return
 
     # Read .asm
     program = utils.readFile(filename)
@@ -98,7 +107,7 @@ def main():
 
     if silent:
         print()
-        utils.printPipelineRegs()
+        #  utils.printPipelineRegs()
         utils.printRegMem()
         utils.printDataMem()
     else:
@@ -114,7 +123,7 @@ def main():
 
 if __name__ == "__main__":
     # To print (pipe to file) pretty borders on Windows
-    if sys.platform == "win32": 
+    if sys.platform == "win32":
         sys.stdout.reconfigure(encoding="UTF-8")
 
     main()

@@ -86,7 +86,7 @@ def IF():
         # Set own PC (PC Multiplexer)
         if G_MEM.EX_MEM["ZERO"] == 1 and G_MEM.EX_MEM_CTRL["BRANCH"] == 1:
             G_MEM.PC = G_MEM.EX_MEM["BR_TGT"]
-        else:
+        elif G_MEM.FWD["STALL"] != 1:
             G_MEM.PC = G_MEM.PC + 4
 
 def ID():
@@ -228,13 +228,13 @@ def MEM():
             print("***WARNING***")
             print("\tMemory Read at position {} not executed:".format(G_MEM.EX_MEM["ALU_OUT"]))
             print("\t\tMemory only has {} positions.".format(G_UTL.DATA_SIZE*4))
-            
+
             try:
                 input("Press ENTER to continue execution or abort with CTRL-C. ")
             except KeyboardInterrupt:
                 print("Execution aborted.")
                 exit()
-    
+
     # Write to Data Memory
     if G_MEM.EX_MEM_CTRL["MEM_WRITE"] == 1:
         # The simulation memory might not be big enough
@@ -244,13 +244,13 @@ def MEM():
             print("***WARNING***")
             print("\tMemory Write at position {} not executed:".format(G_MEM.EX_MEM["ALU_OUT"]))
             print("\t\tMemory only has {} positions.".format(G_UTL.DATA_SIZE*4))
-            
+
             try:
                 input("Press ENTER to continue execution or abort with CTRL-C. ")
             except KeyboardInterrupt:
                 print("Execution aborted.")
                 exit()
-    
+
     # Set MEM/WB.ALUOut
     G_MEM.MEM_WB["ALU_OUT"] = G_MEM.EX_MEM["ALU_OUT"]
 
